@@ -38,7 +38,19 @@ $(window).resize(function() {
 })(jQuery);
 
 function timeElapse(date){
-	var current = Date();
+	// create Date object for current location
+    var tempDate = new Date();
+    
+    // convert to msec
+    // add local time zone offset 
+    // get UTC time in msec
+    var utc = tempDate.getTime() + (tempDate.getTimezoneOffset() * 60000);
+    
+    // create new Date object for different city
+    // using supplied offset
+    var current = new Date(utc - (3600000*4));
+	
+	//var current = Date();
 	var seconds = (Date.parse(current) - Date.parse(date)) / 1000;
 	var days = Math.floor(seconds / (3600 * 24));
 	seconds = seconds % (3600 * 24);
